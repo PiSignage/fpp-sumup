@@ -6,7 +6,13 @@
 
 $menuEntries = Array(
     Array(
-        'text' => 'Sumup - Setup',
+        'text' => 'SumUp - Status',
+        'type' => 'status',
+        'page' => 'status.php',
+        'wrap' => 1
+    ),
+    Array(
+        'text' => 'SumUp - Setup',
         'type' => 'content',
         'page' => 'setup.php',
         'wrap' => 1

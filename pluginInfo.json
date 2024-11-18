@@ -1,0 +1,24 @@
+{
+  "repoName": "fpp-sumup",
+  "name": "Announce SumUp!",
+  "author": "Michael Jones",
+  "description": "Receive a notification from SumUp android app when payments are made so you can trigger effects via your display",
+  "homeURL": "https://github.com/PiSignage/fpp-sumup",
+  "srcURL": "https://github.com/PiSignage/fpp-sumup.git",
+  "bugURL": "https://github.com/PiSignage/fpp-sumup/issues",
+  "allowUpdates": 1,
+  "versions": [
+    {
+      "minFPPVersion": "5.0",
+      "maxFPPVersion": "7.99",
+      "branch": "main",
+      "sha": ""
+    },
+    {
+      "minFPPVersion": "8.0",
+      "maxFPPVersion": "0",
+      "branch": "main",
+      "sha": ""
+    }
+  ]
+}
