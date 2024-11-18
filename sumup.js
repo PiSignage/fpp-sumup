@@ -54,7 +54,7 @@ $(function () {
   if ($('#pluginupdate').length) {
     $.ajax({
       type: "POST",
-      url: 'api/plugin/fpp-zettle/updates',
+      url: 'api/plugin/fpp-sumup/updates',
       dataType: 'json',
       contentType: 'application/json',
       success: function (data) {

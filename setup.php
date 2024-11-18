@@ -7,6 +7,7 @@ $pluginJson = convertAndGetSettingsSumUp($pluginName);
 <link rel="stylesheet" href="/plugin.php?plugin=fpp-sumup&file=sumup.css&nopage=1">
 <script type="text/javascript" src="/plugin.php?plugin=fpp-sumup&file=sumup.js&nopage=1"></script>
 <div id="global" class="settings">
+  <?php include $settings["pluginDirectory"] . "/fpp-sumup/pluginUpdate.php" ?>
   <legend>Effect</legend>
   <p>Select a command that you would like to run when a transaction comes in</p>
 
