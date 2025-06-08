@@ -1,5 +1,4 @@
 <?php
-
 include_once "sumup.common.php";
 $pluginName = "sumup";
 $pluginJson = convertAndGetSettingsSumUp($pluginName);
@@ -8,6 +7,15 @@ $pluginJson = convertAndGetSettingsSumUp($pluginName);
 <script type="text/javascript" src="/plugin.php?plugin=fpp-sumup&file=sumup.js&nopage=1"></script>
 <div id="global" class="settings">
   <?php include $settings["pluginDirectory"] . "/fpp-sumup/pluginUpdate.php" ?>
+
+  <div class="alert alert-info">
+    This plugin works with custom Sumup Donation andriod app. It can be downloaded <a
+      href="https://fpp-zettle.s3.dualstack.eu-west-2.amazonaws.com/sumup_donation_app.apk" target="_blank">here</a>
+    <br>
+    Note this app is not publised on the andriod play store and will need to have Install Unknown Apps enabled on your
+    andriod derive.
+  </div>
+
   <legend>Effect</legend>
   <p>Select a command that you would like to run when a transaction comes in</p>
 
@@ -31,9 +39,10 @@ $pluginJson = convertAndGetSettingsSumUp($pluginName);
                   <td>Activate:</td>
                   <td>
                     <select id="effect_activate" required>
-                      <option value="yes" <?php echo $pluginJson['effect_activate'] == 'yes' ? 'selected' : null; ?>>Yes</option>
+                      <option value="yes" <?php echo $pluginJson['effect_activate'] == 'yes' ? 'selected' : null; ?>>Yes
+                      </option>
                       <option value="no" <?php echo $pluginJson['effect_activate'] == 'no' ? 'selected' : null;
-                                          echo !isset($pluginJson['effect_activate']) ? 'selected' : ''; ?>>No</option>
+                      echo !isset($pluginJson['effect_activate']) ? 'selected' : ''; ?>>No</option>
                     </select>
                   </td>
                 </tr>
@@ -55,10 +64,13 @@ $pluginJson = convertAndGetSettingsSumUp($pluginName);
     <input id="test_command" type="button" value="Test" class="buttons">
   </form>
 
-  <div class="alert alert-info">If you are looking for help press F1 or <a href="plugin.php?plugin=fpp-sumup&page=help.php" class="alert-link" target="_blank">Click Here</a></div>
+  <div class="alert alert-info">If you are looking for help press F1 or <a
+      href="plugin.php?plugin=fpp-sumup&page=help.php" class="alert-link" target="_blank">Click Here</a></div>
 
   <legend>Pushover</legend>
-  <p>Get notification sent your phone every time a donate is made. Pushover is free to use for 30 days. If you want to use it for longer there is a $5 USD one-time purchase fee. Check out the details at there website: <a href="https://pushover.net/" target="_blank">https://pushover.net</a></p>
+  <p>Get notification sent your phone every time a donate is made. Pushover is free to use for 30 days. If you want to
+    use it for longer there is a $5 USD one-time purchase fee. Check out the details at there website: <a
+      href="https://pushover.net/" target="_blank">https://pushover.net</a></p>
 
   <form id="pushover" action="">
     <div class="container-fluid settingsTable settingsGroupTable">
@@ -70,9 +82,10 @@ $pluginJson = convertAndGetSettingsSumUp($pluginName);
         </div>
         <div class="printSettingFieldCol col-md">
           <select id="pushover_activate" required class="form-control">
-            <option value="yes" <?php echo $pluginJson['pushover']['activate'] == 'yes' ? 'selected' : null; ?>>Yes</option>
+            <option value="yes" <?php echo $pluginJson['pushover']['activate'] == 'yes' ? 'selected' : null; ?>>Yes
+            </option>
             <option value="no" <?php echo $pluginJson['pushover']['activate'] == 'no' ? 'selected' : null;
-                                echo !isset($pluginJson['pushover']['activate']) ? 'selected' : ''; ?>>No</option>
+            echo !isset($pluginJson['pushover']['activate']) ? 'selected' : ''; ?>>No</option>
           </select>
         </div>
       </div>
@@ -83,7 +96,8 @@ $pluginJson = convertAndGetSettingsSumUp($pluginName);
           </div>
         </div>
         <div class="printSettingFieldCol col-md">
-          <input type="text" id="pushover_app_token" value="<?php echo $pluginJson["pushover"]["app_token"]; ?>" required class="form-control">
+          <input type="text" id="pushover_app_token" value="<?php echo $pluginJson["pushover"]["app_token"]; ?>"
+            required class="form-control">
         </div>
       </div>
       <div class="row">
@@ -93,7 +107,8 @@ $pluginJson = convertAndGetSettingsSumUp($pluginName);
           </div>
         </div>
         <div class="printSettingFieldCol col-md">
-          <input type="text" id="pushover_user_key" value="<?php echo $pluginJson["pushover"]["user_key"]; ?>" required class="form-control">
+          <input type="text" id="pushover_user_key" value="<?php echo $pluginJson["pushover"]["user_key"]; ?>" required
+            class="form-control">
         </div>
       </div>
       <div class="row">
@@ -103,7 +118,8 @@ $pluginJson = convertAndGetSettingsSumUp($pluginName);
           </div>
         </div>
         <div class="printSettingFieldCol col-md">
-          <input type="text" id="pushover_message" value="<?php echo $pluginJson["pushover"]["message"]; ?>" required class="form-control">
+          <input type="text" id="pushover_message" value="<?php echo $pluginJson["pushover"]["message"]; ?>" required
+            class="form-control">
         </div>
       </div>
     </div>
