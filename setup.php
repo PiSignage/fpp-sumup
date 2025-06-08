@@ -12,7 +12,7 @@ $pluginJson = convertAndGetSettingsSumUp($pluginName);
     This plugin works with custom Sumup Donation andriod app. It can be downloaded <a
       href="https://fpp-zettle.s3.dualstack.eu-west-2.amazonaws.com/sumup_donation_app.apk" target="_blank">here</a>
     <br>
-    Note this app is not publised on the andriod play store and will need to have Install Unknown Apps enabled on your
+    Note: This app is not publised on the andriod play store and will need to have <b>Install Unknown Apps</b> enabled on your
     andriod derive.
   </div>
 
