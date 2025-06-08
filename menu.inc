@@ -16,6 +16,12 @@ $menuEntries = Array(
         'type' => 'content',
         'page' => 'setup.php',
         'wrap' => 1
+    ),
+    Array(
+        'text' => 'SumUp - Help',
+        'type' => 'help',
+        'page' => 'help.php',
+        'wrap' => 1
     )
 );
 
