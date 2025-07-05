@@ -23,3 +23,7 @@ else
 	echo "$defalt_json" > /home/fpp/media/config/plugin.fpp-sumup.json
 	sudo chown fpp /home/fpp/media/config/plugin.fpp-sumup.json
 fi
+
+echo "Please restart fppd for new FPP Commands to be visible."
+. /opt/fpp/scripts/common
+setSetting restartFlag 1
