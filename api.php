@@ -74,6 +74,8 @@ function fppSumupEvent()
       'command' => $config['command'],
       'args' => $config['args'],
       'formatted_amount' => $paymentData['formatted_amount'],
+      'multisyncCommand' => isset($config['multisyncHosts']) ? $config['multisyncCommand'] : false,
+      'multisyncHosts' => isset($config['multisyncHosts']) ? $config['multisyncHosts'] : ""
     ]);
     // Check if pushover is active
     if (isset($config['pushover']) && $config['pushover']['activate'] == 'yes') {
@@ -81,7 +83,10 @@ function fppSumupEvent()
     }
     // Check if publish is active
     if (isset($config['publish']) && $config['publish']['activate'] == 'yes') {
-      // sumUpPublishTransactionDetails($payload);
+      sumUpPublishTransactionDetails([
+        'amount' => $amount,
+        'currency' => $currency,
+      ]);
     }
     // Store userUuid and if they have activated publish or not
     // sumUpStoreCustomer($config, $paymentData);
@@ -133,6 +138,7 @@ function sumUpPublishTransactionDetails($payload = [])
     'form_params' => [
       'amount' => $payload['amount'],
       'currency' => $payload['currency'],
+      'type' => 'sumup',
     ],
   ];
 
@@ -187,7 +193,7 @@ function sumUpBuildMessage($paymentData = [], $data = [], $url_encode = false)
   // Find and replace values in array as payment details
   $text = str_replace([
     '{{AMOUNT}}',
-  ],  $replacement_values, is_array($data) ? end($data) : $data);
+  ], $replacement_values, is_array($data) ? end($data) : $data);
 
   customLogsSumUp('Build Message Output: ' . $text);
   return $text;
@@ -233,11 +239,18 @@ function sumUpRunCommand($data = [])
     $data['args'] = $command_args;
   }
 
+  // Check if multisyncCommand is set to false 
+  // if so unset the multisync options 
+  if ($data['multisyncCommand'] == false) {
+    unset($data['multisyncCommand']);
+    unset($data['multisyncHosts']);
+  }
+
   customLogsSumUp('Sending command: ' . $data);
 
   // Fire the command
   $query = json_encode($data);
-  $ch    = curl_init();
+  $ch = curl_init();
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_HEADER, false);
   curl_setopt($ch, CURLOPT_URL, $url);
