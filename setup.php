@@ -2,6 +2,7 @@
 include_once "sumup.common.php";
 $pluginName = "sumup";
 $pluginJson = convertAndGetSettingsSumUp($pluginName);
+$apkUrl = "https://fpp-zettle.s3.dualstack.eu-west-2.amazonaws.com/donations_app.apk";
 ?>
 <link rel="stylesheet" href="/plugin.php?plugin=fpp-sumup&file=sumup.css&nopage=1">
 <script type="text/javascript" src="/plugin.php?plugin=fpp-sumup&file=sumup.js&nopage=1"></script>
@@ -31,7 +32,7 @@ $pluginJson = convertAndGetSettingsSumUp($pluginName);
 
   <div class="alert alert-info">
     This plugin works with custom Sumup Donation andriod app. It can be downloaded <a
-      href="https://fpp-zettle.s3.dualstack.eu-west-2.amazonaws.com/donations.apk" target="_blank">here</a>
+      href="<?php echo $apkUrl; ?>" target="_blank">here</a>
     <br>
     Note: This app is not publised on the andriod play store and will need to have <b>Install Unknown Apps</b> enabled
     on your
@@ -46,6 +47,10 @@ $pluginJson = convertAndGetSettingsSumUp($pluginName);
       <a href="https://buymeacoffee.com/mjonesfpp" target="_blank" rel="noopener noreferrer"
         class="zettle-btn">
         <i class="fas fa-fw fa-mug-hot"></i> Buy Me a Coffee
+      </a>
+      <a href="<?php echo $apkUrl; ?>" target="_blank" rel="noopener noreferrer"
+        class="zettle-btn">
+        <i class="fas fa-fw fa-download"></i> Download APK
       </a>
     </div>
   </div>
