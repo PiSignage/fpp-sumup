@@ -1,28 +1,57 @@
 #!/bin/bash
 
-# fpp-zettle install script
-echo "Installing Sumup Plugin for FPP...."
+PLUGIN_DIR="$(dirname "$0")"
 
-echo "Writing config file...."
+# Log to /tmp first (always writable), then also try the media logs dir
+LOGFILE="/tmp/fppSumUp_install.log"
+MEDIA_LOG="/home/fpp/media/logs/fppSumUp_install.log"
 
-file=/home/fpp/media/config/plugin.fpp-sumup.json
-
-defalt_json=$(cat <<EOF
-{
-	"command": ""
+log() {
+    local msg="[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+    echo "$msg" | tee -a "$LOGFILE"
+    echo "$msg" >> "$MEDIA_LOG" 2>/dev/null || true
 }
-EOF
-)
 
-if [ -s "$file" ]
-then
-	echo " Config file exists and is not empty... continuing "
-else
-	echo " Config file does not exist, or is empty "
-   	touch $file
-	echo "$defalt_json" > /home/fpp/media/config/plugin.fpp-sumup.json
-	sudo chown fpp /home/fpp/media/config/plugin.fpp-sumup.json
+log "=== Announce SumUp install started (user=$(whoami), uid=$(id -u)) ==="
+
+# ── Create media directories ─────────────────────────────────────
+# Do this FIRST so the media log path is available.
+mkdir -p /home/fpp/media/logs
+mkdir -p /home/fpp/media/config
+
+# Now that the dir exists, copy /tmp log into media log
+cat "$LOGFILE" >> "$MEDIA_LOG" 2>/dev/null || true
+
+# ── Make scripts executable ──────────────────────────────────────
+log "Setting script permissions..."
+chmod +x "${PLUGIN_DIR}/scripts/"*.sh 2>/dev/null || true
+
+# ── Write default config if none exists ─────────────────────────
+CONFIG="/home/fpp/media/config/plugin.fpp-sumup.json"
+if [[ ! -f "$CONFIG" ]]; then
+log "Writing default config to $CONFIG"
+    cp "${PLUGIN_DIR}/config/fpp-sumup.json.example" "$CONFIG" 2>/dev/null || \
+    cat > "$CONFIG" <<'JSONEOF'
+{
+	"effect_activate": "no",
+	"command": "",
+	"publish": {
+		"activate": "yes"
+	},
+	"pushover": {
+    "activate": "no",
+    "app_token": "",
+    "user_key": "",
+    "message": ""
+  },
+  "other": {
+    "currency": "GBP"
+  }
+}
+JSONEOF
 fi
+
+sudo chown fpp /home/fpp/media/config/plugin.fpp-sumup.json
 
 echo "Please restart fppd for new FPP Commands to be visible."
 . /opt/fpp/scripts/common

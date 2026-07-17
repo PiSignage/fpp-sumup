@@ -1,0 +1,16 @@
+{
+	"effect_activate": "no",
+	"command": "",
+	"publish": {
+    "activate": "yes"
+  },
+  "pushover": {
+    "activate": "no",
+    "app_token": "",
+    "user_key": "",
+    "message": ""
+  },
+  "other": {
+    "currency": "GBP"
+  }
+}
