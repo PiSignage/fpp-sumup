@@ -30,6 +30,8 @@ mkdir -p /home/fpp/media/config
 # ── Make scripts executable ──────────────────────────────────────
 log "Setting script permissions..."
 chmod +x "${PLUGIN_DIR}/scripts/"*.sh 2>/dev/null || true
+chmod +x "${PLUGIN_DIR}/fpp_start.sh" 2>/dev/null || true
+chmod +x "${PLUGIN_DIR}/fpp_stop.sh" 2>/dev/null || true
 
 # ── Write default config if none exists ─────────────────────────
 CONFIG="/home/fpp/media/config/plugin.fpp-sumup.json"
@@ -56,8 +58,15 @@ log "Writing default config to $CONFIG"
 JSONEOF
 fi
 
+TRANSACTIONS="${PLUGIN_DIR}/config/plugin.fpp-sumup-transactions.json"
+log "Writing default transactions to $TRANSACTIONS"
+    cp "${PLUGIN_DIR}/config/fpp-zettle-sumup.json.example" "$TRANSACTIONS" 2>/dev/null || \
+    cat > "$TRANSACTIONS" <<'JSONEOF'
+[]
+JSONEOF
+
 echo "Please restart fppd for new FPP Commands to be visible."
 source ${FPPDIR}/scripts/common; setSetting restartFlag 1
 
-log "=== Announce Zettle install complete ==="
+log "=== Announce SumUp install complete ==="
 exit 0
