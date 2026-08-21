@@ -39,7 +39,7 @@ function getTransactionsTotal()
 
 <head>
   <link rel="stylesheet" href="/plugin.php?plugin=fpp-sumup&file=assets/css/mermaid.min.css&nopage=1">
-  <link rel="stylesheet" href="/plugin.php?plugin=fpp-zettle&file=sumup.css&nopage=1">
+  <link rel="stylesheet" href="/plugin.php?plugin=fpp-sumup&file=sumup.css&nopage=1">
   <script type="text/javascript" src="/plugin.php?plugin=fpp-sumup&file=assets/js/gridjs.min.js&nopage=1"></script>
   <script type="text/javascript" src="/plugin.php?plugin=fpp-sumup&file=sumup.js&nopage=1"></script>
   <style>
