@@ -58,9 +58,9 @@ log "Writing default config to $CONFIG"
 JSONEOF
 fi
 
-TRANSACTIONS="${PLUGIN_DIR}/config/plugin.fpp-sumup-transactions.json"
+TRANSACTIONS="/home/fpp/media/config/plugin.fpp-sumup-transactions.json"
 log "Writing default transactions to $TRANSACTIONS"
-    cp "${PLUGIN_DIR}/config/fpp-zettle-sumup.json.example" "$TRANSACTIONS" 2>/dev/null || \
+    cp "${PLUGIN_DIR}/config/fpp-sumup-transactions.json.example" "$TRANSACTIONS" 2>/dev/null || \
     cat > "$TRANSACTIONS" <<'JSONEOF'
 []
 JSONEOF
