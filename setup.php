@@ -44,9 +44,9 @@ $apkUrl = "https://fpp-zettle.s3.dualstack.eu-west-2.amazonaws.com/donations_app
       <h2 class="mb-0">Announce SumUp!</h2>
     </div>
     <div class="d-flex align-items-center gap-2 zettle-donate-row">
-      <a href="https://buymeacoffee.com/mjonesfpp" target="_blank" rel="noopener noreferrer"
+      <a href="https://github.com/PiSignage/fpp-sumup" target="_blank" rel="noopener noreferrer"
         class="zettle-btn">
-        <i class="fas fa-fw fa-mug-hot"></i> Buy Me a Coffee
+        <i class="fas fa-fw fa-code-branch"></i> GitHub Repo
       </a>
       <a href="<?php echo $apkUrl; ?>" target="_blank" rel="noopener noreferrer"
         class="zettle-btn">

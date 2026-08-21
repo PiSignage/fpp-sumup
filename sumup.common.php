@@ -53,7 +53,7 @@ function customLogsSumUp($message)
   if (is_array($message)) {
     $message = json_encode($message);
   }
-  $file = fopen($settings['logDirectory'] . "/fpp-sumup.log", "a");
+  $file = fopen($settings['logDirectory'] . "/plugin.fpp-sumup.log", "a");
   fwrite($file, "\n" . date('Y-m-d H:i:s') . " :: " . $message);
   fclose($file);
   return;

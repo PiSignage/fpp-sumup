@@ -239,18 +239,20 @@ function sumUpRunCommand($data = [])
     $data['args'] = $command_args;
   }
 
-  // Check if multisyncCommand is set to false 
-  // if so unset the multisync options 
+  // Check if multisyncCommand is set to false
+  // if so unset the multisync options
   if ($data['multisyncCommand'] == false) {
     unset($data['multisyncCommand']);
     unset($data['multisyncHosts']);
   }
 
-  customLogsSumUp('Sending command: ' . $data);
+  customLogsSumUp('Sending command: ' . json_encode($data));
 
   // Fire the command
   $query = json_encode($data);
   $ch = curl_init();
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 400);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_HEADER, false);
   curl_setopt($ch, CURLOPT_URL, $url);
