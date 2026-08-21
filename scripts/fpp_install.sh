@@ -69,7 +69,7 @@ log "Writing default transactions to $TRANSACTIONS"
 JSONEOF
 
 echo "Please restart fppd for new FPP Commands to be visible."
-source ${FPPDIR}/scripts/common; setSetting restartFlag 1
-
 log "=== Announce SumUp install complete ==="
+
+source ${FPPDIR}/scripts/common; setSetting restartFlag 1
 exit 0
