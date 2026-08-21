@@ -161,4 +161,32 @@ $(function () {
       }
     });
   });
+
+  $('#clear_transactions').on('click', function (e) {
+    var transactions = [];
+    $.ajax({
+      type: "POST",
+      url: 'api/configfile/plugin.fpp-sumup-transactions.json',
+      dataType: 'json',
+      async: false,
+      data: JSON.stringify(transactions),
+      processData: false,
+      contentType: 'application/json',
+      beforeSend: function () {
+        $('#clear_transactions').prop('disabled', true);
+      },
+      success: function (data) {
+        $.jGrowl('Transactions cleared', {
+          themeState: 'success'
+        });
+        setTimeout(function () {
+          location.reload();
+        }, 3000);
+      },
+      error: function () {
+        $('#clear_transactions').prop('disabled', false);
+        DialogError('Error', "ERROR: There was an error in saving your details, please try again!");
+      }
+    });
+  });
 });
