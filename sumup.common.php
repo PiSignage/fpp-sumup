@@ -30,11 +30,22 @@ function convertAndGetSettingsSumUp($filename)
 
 function writeToJsonFileSumUp($filename, $data)
 {
-  global $settings;
+  // global $settings;
 
-  $cfgFile = $settings['configDirectory'] . "/plugin.fpp-sumup-" . $filename . ".json";
-  $json_data = json_encode($data);
-  file_put_contents($cfgFile, $json_data);
+  // $cfgFile = $settings['configDirectory'] . "/plugin.fpp-sumup-" . $filename . ".json";
+  // $json_data = json_encode($data);
+  // file_put_contents($cfgFile, $json_data);
+
+  $name = "plugin.fpp-sumup-" . $filename . ".json";
+  $ctx = stream_context_create(["http" => [
+    "method"  => "POST",
+    "header"  => "Content-Type: text/plain\r\n",
+    "content" => json_encode($data),
+    "timeout" => 5,
+    "ignore_errors" => true,
+  ]]);
+  $result = @file_get_contents("http://localhost/api/configfile/$name", false, $ctx);
+  return $result !== false;
 }
 
 function readConfigSumUp()

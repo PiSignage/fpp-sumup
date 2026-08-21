@@ -43,58 +43,55 @@ function fppSumupEvent()
   $event = json_decode(file_get_contents('php://input'), true);
   header("Content-Type: application/json");
 
-  $amount = ($event['amount'] / 100);
-  $currency = $event['currency'];
+  try {
+    // Check if that has been passed
+    if (count($event) == 0) {
+      throw new Exception("No data has been passed");
+    }
+    // Check for amount in data
+    if (!array_key_exists('amount', $event)) {
+      throw new Exception("Amount not found");
+    }
+    // Check for 
+    if (!array_key_exists('currency', $event)) {
+      throw new Exception("Currency not found");
+    }
 
-  // Other Felids can be added to this
-  $paymentData = [
-    'formatted_amount' => number_format($amount, 2) . ' ' . $currency,
-    'amount' => $amount,
-    'timestamp' => round(microtime(true) * 1000),
-    // 'userUuid' => $payload['userUuid'],
-  ];
+    $amount = ($event['amount'] / 100);
+    $currency = $event['currency'];
 
-  // Get currentTransactions
-  $currentTransactions = convertAndGetSettingsSumUp('sumup-transactions');
-  // Push new transaction
-  array_push($currentTransactions, $paymentData);
-  // Store transaction to json file
-  writeToJsonFileSumUp('transactions', $currentTransactions);
-  // Store transation account
-  totalTransactionsSumUp($amount);
-  // Write transaction to log file
-  // customLogsSumUp($payload);
+    // Other Felids can be added to this
+    $paymentData = [
+      'formatted_amount' => number_format($amount, 2) . ' ' . $currency,
+      'amount' => $amount,
+      'timestamp' => round(microtime(true) * 1000),
+    ];
 
-  // Get sumup config
-  $config = convertAndGetSettingsSumUp('sumup');
-  if ($config['effect_activate'] == 'yes' && $config['command'] != '') {
-    // Run default command
-    customLogsSumUp('Run default command');
-    sumUpRunCommand([
-      'command' => $config['command'],
-      'args' => $config['args'],
-      'formatted_amount' => $paymentData['formatted_amount'],
-      'multisyncCommand' => isset($config['multisyncHosts']) ? $config['multisyncCommand'] : false,
-      'multisyncHosts' => isset($config['multisyncHosts']) ? $config['multisyncHosts'] : ""
+    // Get currentTransactions
+    $currentTransactions = convertAndGetSettingsSumUp('sumup-transactions');
+    // Push new transaction
+    array_push($currentTransactions, $paymentData);
+    // Store transaction to json file
+    writeToJsonFileSumUp('transactions', $currentTransactions);
+    // Store transation account
+    totalTransactionsSumUp($amount);
+    // Write transaction to log file
+    customLogsSumUp("API Data");
+    customLogsSumUp($paymentData);
+
+    runEffect($paymentData, $amount, $currency);
+
+    return json_encode([
+      'error' => false,
+      'message' => 'All ok'
     ]);
-    // Check if pushover is active
-    if (isset($config['pushover']) && $config['pushover']['activate'] == 'yes') {
-      sumUpPushover($config, $paymentData);
-    }
-    // Check if publish is active
-    if (isset($config['publish']) && $config['publish']['activate'] == 'yes') {
-      sumUpPublishTransactionDetails([
-        'amount' => $amount,
-        'currency' => $currency,
-      ]);
-    }
-    // Store userUuid and if they have activated publish or not
-    // sumUpStoreCustomer($config, $paymentData);
+  } catch (Exception $e) {
+    echo json_encode([
+      'error' => true,
+      'message' => $e->getMessage()
+    ]);
+    return;
   }
-  return json_encode([
-    'error' => false,
-    'message' => 'All ok'
-  ]);
 }
 
 /**
@@ -115,7 +112,7 @@ function sumUpPushover($config = [], $paymentData = [])
     $client->push($message);
     customLogsSumUp('The pushover message has been pushed!');
   } catch (PushoverException $e) {
-    customLogsSumUp('PUSHOVER ERROR: ', $e->getMessage());
+    customLogsSumUp('PUSHOVER ERROR: ' . $e->getMessage());
   }
 }
 
@@ -262,4 +259,34 @@ function sumUpRunCommand($data = [])
   curl_close($ch);
   // Write to log file
   customLogsSumUp('command fired');
+}
+
+function runEffect($paymentData, $amount, $currency)
+{
+  // Get sumup config
+  $config = convertAndGetSettingsSumUp('sumup');
+  if ($config['effect_activate'] == 'yes' && $config['command'] != '') {
+    // Run default command
+    customLogsSumUp('Run default command');
+    sumUpRunCommand([
+      'command' => $config['command'],
+      'args' => $config['args'],
+      'formatted_amount' => $paymentData['formatted_amount'],
+      'multisyncCommand' => isset($config['multisyncHosts']) ? $config['multisyncCommand'] : false,
+      'multisyncHosts' => isset($config['multisyncHosts']) ? $config['multisyncHosts'] : ""
+    ]);
+    // Check if pushover is active
+    if (isset($config['pushover']) && $config['pushover']['activate'] == 'yes') {
+      sumUpPushover($config, $paymentData);
+    }
+    // Check if publish is active
+    if (isset($config['publish']) && $config['publish']['activate'] == 'yes') {
+      sumUpPublishTransactionDetails([
+        'amount' => $amount,
+        'currency' => $currency,
+      ]);
+    }
+    // Store userUuid and if they have activated publish or not
+    //sumUpStoreCustomer($config, $paymentData);
+  }
 }

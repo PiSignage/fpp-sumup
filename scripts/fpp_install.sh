@@ -33,7 +33,10 @@ chmod +x "${PLUGIN_DIR}/scripts/"*.sh 2>/dev/null || true
 chmod +x "${PLUGIN_DIR}/fpp_start.sh" 2>/dev/null || true
 chmod +x "${PLUGIN_DIR}/fpp_stop.sh" 2>/dev/null || true
 
-# ── Write default config if none exists ─────────────────────────
+# ── Change logfile owner to fpp ──────────────────────────────────
+chown fpp:fpp "${LOGFILE}"
+
+# ── Write default config if none exists ────────────────────────
 CONFIG="/home/fpp/media/config/plugin.fpp-sumup.json"
 if [[ ! -f "$CONFIG" ]]; then
 log "Writing default config to $CONFIG"

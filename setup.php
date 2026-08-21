@@ -67,7 +67,7 @@ $apkUrl = "https://fpp-zettle.s3.dualstack.eu-west-2.amazonaws.com/donations_app
     <p>Note: You can put what ever you want in the text felid does not to have the above options in it.</p>
   </div>
 
-  <form id="api_effect" action="" method="post">
+  <form id="settings" action="" method="post">
     <div class="container-fluid settingsTable settingsGroupTable">
       <div class="row">
         <div class="buttonCommandWrap">
@@ -99,19 +99,16 @@ $apkUrl = "https://fpp-zettle.s3.dualstack.eu-west-2.amazonaws.com/donations_app
         </div>
       </div>
     </div>
-    <input id="effect_save" type="submit" value="Save" class="buttons btn-success">
-    <input id="test_command" type="button" value="Test" class="buttons">
-  </form>
+    <input id="test_command" type="button" value="Test" class="buttons mb-2">
 
-  <div class="alert alert-info">If you are looking for help press F1 or <a
-      href="plugin.php?plugin=fpp-sumup&page=help.php" class="alert-link" target="_blank">Click Here</a></div>
+    <div class="alert alert-info">If you are looking for help press F1 or <a
+        href="plugin.php?plugin=fpp-sumup&page=help.php" class="alert-link" target="_blank">Click Here</a></div>
 
-  <legend>Pushover</legend>
-  <p>Get notification sent your phone every time a donate is made. Pushover is free to use for 30 days. If you want to
-    use it for longer there is a $5 USD one-time purchase fee. Check out the details at there website: <a
-      href="https://pushover.net/" target="_blank">https://pushover.net</a></p>
+    <legend>Pushover</legend>
+    <p>Get notification sent your phone every time a donate is made. Pushover is free to use for 30 days. If you want to
+      use it for longer there is a $5 USD one-time purchase fee. Check out the details at there website: <a
+        href="https://pushover.net/" target="_blank">https://pushover.net</a></p>
 
-  <form id="pushover" action="">
     <div class="container-fluid settingsTable settingsGroupTable">
       <div class="row">
         <div class="printSettingLabelCol col-md-4 col-lg-3 col-xxxl-2">
@@ -135,8 +132,7 @@ $apkUrl = "https://fpp-zettle.s3.dualstack.eu-west-2.amazonaws.com/donations_app
           </div>
         </div>
         <div class="printSettingFieldCol col-md">
-          <input type="text" id="pushover_app_token" value="<?php echo $pluginJson["pushover"]["app_token"]; ?>"
-            required class="form-control">
+          <input type="text" id="pushover_app_token" value="<?php echo $pluginJson["pushover"]["app_token"]; ?>" class="form-control">
         </div>
       </div>
       <div class="row">
@@ -146,8 +142,7 @@ $apkUrl = "https://fpp-zettle.s3.dualstack.eu-west-2.amazonaws.com/donations_app
           </div>
         </div>
         <div class="printSettingFieldCol col-md">
-          <input type="text" id="pushover_user_key" value="<?php echo $pluginJson["pushover"]["user_key"]; ?>" required
-            class="form-control">
+          <input type="text" id="pushover_user_key" value="<?php echo $pluginJson["pushover"]["user_key"]; ?>" class="form-control">
         </div>
       </div>
       <div class="row">
@@ -157,11 +152,13 @@ $apkUrl = "https://fpp-zettle.s3.dualstack.eu-west-2.amazonaws.com/donations_app
           </div>
         </div>
         <div class="printSettingFieldCol col-md">
-          <input type="text" id="pushover_message" value="<?php echo $pluginJson["pushover"]["message"]; ?>" required
-            class="form-control">
+          <input type="text" id="pushover_message" value="<?php echo $pluginJson["pushover"]["message"]; ?>" class="form-control">
         </div>
       </div>
     </div>
-    <input type="submit" value="Save" class="buttons btn-success">
+    <button type="submit" class="btn btn-success">
+      <i class="fas fa-fw fa-save"></i>
+      Save Settings
+    </button>
   </form>
 </div>

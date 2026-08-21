@@ -1,40 +1,5 @@
 var sumUpConfig = null;
 
-function SaveSumUpConfig(config, button = '', reload = false, success_msg = '') {
-  // var data = JSON.stringify(config);
-  $.ajax({
-    type: "POST",
-    // url: 'api/configfile/plugin.fpp-zettle.json',
-    url: 'plugin.php?plugin=fpp-sumup&page=sumup.php&command=update_json&nopage=1',
-    async: false,
-    data: config,
-    dataType: 'json',
-    async: false,
-    beforeSend: function () {
-      if (button != '') {
-        $(button).prop('disabled', true);
-      }
-    },
-    success: function (data) {
-      $.jGrowl(success_msg, {
-        themeState: 'success'
-      });
-      if (reload) {
-        ;
-        setTimeout(function () {
-          location.reload();
-        }, 3000);
-      }
-    },
-    error: function () {
-      if (button != '') {
-        $(button).prop('disabled', false);
-      }
-      DialogError('Error', "ERROR: There was an error, please try again!");
-    }
-  });
-}
-
 function UpgradePlugin() {
   var url = 'api/plugin/fpp-sumup/upgrade?stream=true';
 
@@ -80,7 +45,7 @@ $(function () {
       sumUpConfig = config;
     }
 
-    if ($('#api_effect').length > 0) {
+    if ($('#settings').length > 0) {
       console.log('api_effect found');
       var newButtonRowCommand = 'button_TPL_Command';
       var newButtonRowTable = 'tableButtonTPL';
@@ -113,27 +78,6 @@ $(function () {
       });
     }
   }
-
-  $('#api_effect').on('submit', function (e) {
-    e.preventDefault();
-
-    var effect = $('#select_effect option:selected').val();
-
-    $('[id^="tableButton"]').each(function () {
-      var oldId = $(this).prop('id')
-      var idArr = oldId.split('_');
-      idArr[0] = 'tableButtonTPL'
-      $(this).attr('id', idArr.join('_'));
-      console.log($(this).attr('id', idArr.join('_')));
-    });
-
-    var sumUp = {
-      "option": 'effect',
-      "effect_activate": $('#effect_activate option:selected').val(),
-    };
-    CommandToJSON('button_TPL_Command', 'tableButtonTPL', sumUp);
-    SaveSumUpConfig(sumUp, '#effect_save', true, 'Effect Saved!');
-  });
 
   // Test command with out the need to save it first
   $('#test_command').on('click', function () {
@@ -172,34 +116,48 @@ $(function () {
     }
   });
 
-  $('#pushover').on('submit', function (e) {
+  $('#settings').on('submit', function (e) {
     e.preventDefault();
 
     var thisForm = $(this);
-    var submitButton = $("input[type=submit]", thisForm);
+    var submitButton = $("button[type=submit]", thisForm);
+
+    $('[id^="tableButton"]').each(function () {
+      var oldId = $(this).prop('id')
+      var idArr = oldId.split('_');
+      idArr[0] = 'tableButtonTPL'
+      $(this).attr('id', idArr.join('_'));
+    });
+
+    var sumUp = {
+      "effect_activate": $('#effect_activate option:selected').val(),
+      "activate": $('#pushover_activate option:selected').val(),
+      "app_token": $('#pushover_app_token').val(),
+      "user_key": $('#pushover_user_key').val(),
+      "message": $('#pushover_message').val()
+    };
+    CommandToJSON('button_TPL_Command', 'tableButtonTPL', sumUp);
 
     $.ajax({
       type: "POST",
-      url: "plugin.php?plugin=fpp-sumup&page=sumup.php&command=save_pushover&nopage=1",
+      url: "api/configfile/plugin.fpp-sumup.json",
       dataType: 'json',
       async: false,
-      data: {
-        option: "pusher",
-        activate: $('#pushover_activate option:selected').val(),
-        app_token: $('#pushover_app_token').val(),
-        user_key: $('#pushover_user_key').val(),
-        message: $('#pushover_message').val()
-      },
+      data: JSON.stringify(sumUp),
       beforeSend: function () {
         $(submitButton).prop('disabled', true);
       },
       success: function (data) {
-        $.jGrowl(data.message, {
+        $.jGrowl("Settings Saved", {
           themeState: "success"
         });
         setTimeout(function () {
           location.reload();
         }, 3000);
+      },
+      error: function () {
+        $(submitButtonbutton).prop('disabled', false);
+        DialogError('Error', "ERROR: There was an error, please try again!");
       }
     });
   });
