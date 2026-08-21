@@ -1,5 +1,14 @@
 #!/bin/bash
+# fpp_uninstall.sh — Announce Sumup plugin uninstaller
+# Called by FPP when the plugin is removed. Mirrors fpp_install.sh's
 
-echo "Removing plugin config & transactions...."
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"
+}
 
-rm -f /home/fpp/media/config/plugin.fpp-sumup.json
+log "=== Announce Sumup uninstall started ==="
+log "There is nothing to remove"
+log "=== Announce Sumup uninstall complete. Config in place. ==="
+
+source ${FPPDIR}/scripts/common; setSetting restartFlag 1
+exit 0
