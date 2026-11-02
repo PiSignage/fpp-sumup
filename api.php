@@ -280,12 +280,12 @@ function runEffect($paymentData, $amount, $currency)
       sumUpPushover($config, $paymentData);
     }
     // Check if publish is active
-    if (isset($config['publish']) && $config['publish']['activate'] == 'yes') {
-      sumUpPublishTransactionDetails([
-        'amount' => $amount,
-        'currency' => $currency,
-      ]);
-    }
+    // if (isset($config['publish']) && $config['publish']['activate'] == 'yes') {
+    //   sumUpPublishTransactionDetails([
+    //     'amount' => $amount,
+    //     'currency' => $currency,
+    //   ]);
+    // }
     // Store userUuid and if they have activated publish or not
     //sumUpStoreCustomer($config, $paymentData);
   }

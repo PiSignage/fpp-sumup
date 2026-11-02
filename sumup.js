@@ -131,10 +131,12 @@ $(function () {
 
     var sumUp = {
       "effect_activate": $('#effect_activate option:selected').val(),
-      "activate": $('#pushover_activate option:selected').val(),
-      "app_token": $('#pushover_app_token').val(),
-      "user_key": $('#pushover_user_key').val(),
-      "message": $('#pushover_message').val()
+      "pushover": {
+        "activate": $('#pushover_activate option:selected').val(),
+        "app_token": $('#pushover_app_token').val(),
+        "user_key": $('#pushover_user_key').val(),
+        "message": $('#pushover_message').val()
+      }
     };
     CommandToJSON('button_TPL_Command', 'tableButtonTPL', sumUp);
 

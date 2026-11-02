@@ -118,7 +118,7 @@ $apkUrl = "https://fpp-zettle.s3.dualstack.eu-west-2.amazonaws.com/donations_app
         </div>
         <div class="printSettingFieldCol col-md">
           <select id="pushover_activate" required class="form-control">
-            <option value="yes" <?php echo $pluginJson['pushover']['activate'] == 'yes' ? 'selected' : null; ?>>Yes
+            <option value="yes" <?php echo $pluginJson['activate'] == 'yes' ? 'selected' : null; ?>>Yes
             </option>
             <option value="no" <?php echo $pluginJson['pushover']['activate'] == 'no' ? 'selected' : null;
                                 echo !isset($pluginJson['pushover']['activate']) ? 'selected' : ''; ?>>No</option>
