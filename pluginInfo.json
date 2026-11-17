@@ -8,6 +8,32 @@
   "bugURL": "https://github.com/PiSignage/fpp-sumup/issues",
   "iconURL": "https://raw.githubusercontent.com/PiSignage/fpp-sumup/main/icon.png",
   "allowUpdates": 1,
+  "releaseNotesStyle": "gitRelease",
+  "privacy": {
+    "summary": "If enabled, it publishes amounts to a remote server fpp-zettle.co.uk. No registration, no license server.",
+    "sends": [
+      {
+        "to": "https://fpp-zettle.co.uk/api/transactions",
+        "what": "Donation Amount, Timestamp",
+        "why": "only donation amount and timestamp is send to remote server to give a overview of what is rasied accress all users",
+        "alwaysOn": false
+      }
+    ],
+    "collects": [
+      {
+        "what": "Donation amount from Android Donation App",
+        "about": "operator",
+        "keptDays": null,
+        "canDelete": true,
+        "where": "config/plugin.fpp-sumup-transactions.json"
+      }
+    ],
+    "sensors": [],
+    "remoteAccess": "none",
+    "systemChanges": [],
+    "closedCode": false,
+    "other": "none"
+  },
   "versions": [
     {
       "minFPPVersion": "8.0",
