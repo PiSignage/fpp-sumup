@@ -6,7 +6,7 @@
   "homeURL": "https://github.com/PiSignage/fpp-sumup",
   "srcURL": "https://github.com/PiSignage/fpp-sumup.git",
   "bugURL": "https://github.com/PiSignage/fpp-sumup/issues",
-  "iconURL": "https://raw.githubusercontent.com/PiSignage/fpp-sumup/main/icon.png",
+  "iconURL": "https://raw.githubusercontent.com/PiSignage/fpp-sumup/master/icon.png",
   "allowUpdates": 1,
   "releaseNotesStyle": "gitRelease",
   "privacy": {
